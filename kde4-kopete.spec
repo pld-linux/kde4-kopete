@@ -8,18 +8,18 @@
 Summary:	Multi-protocol plugin-based instant messenger
 Summary(pl.UTF-8):	Komunikator obsługujący wiele protokołów
 Name:		kde4-kopete
-Version:	4.11.3
+Version:	4.12.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	cf98891ab800ff565b8077bfd6f2e498
+# Source0-md5:	d7c91e8b27c634fc4a5fc7a3e871c53e
 Patch0:		%{name}-FindLibgadu.patch
 Patch1:		linphone-fix.patch
-Patch2:		otr.patch
 URL:		http://www.kde.org/
 BuildRequires:	cmake >= 2.8.0
 BuildRequires:	kde4-kdebase-devel >= %{version}
+BuildRequires:	jsoncpp-devel
 BuildRequires:	libgadu-devel >= 1.8.0
 BuildRequires:	libktorrent-devel >= 1.0.2
 BuildRequires:	libmms-devel
@@ -134,8 +134,7 @@ do kopete.
 %prep
 %setup -q -n %{orgname}-%{version}
 %patch0 -p1
-%patch1 -p2
-%patch2 -p2
+#%patch1 -p2
 
 %build
 install -d build
@@ -185,6 +184,7 @@ fi
 %attr(755,root,root) %ghost %{_libdir}/libkyahoo.so.1
 %attr(755,root,root) %{_libdir}/liboscar.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/liboscar.so.1
+%attr(755,root,root) %{_libdir}/libqgroupwise.so
 %{_desktopdir}/kde4/kopete.desktop
 %attr(755,root,root) %{_datadir}/apps/kconf_update/kopete-*.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/kopete-*.sh
@@ -199,11 +199,13 @@ fi
 %{_iconsdir}/*/*/*/*.svgz
 %{_datadir}/kde4/services/*.protocol
 %{_datadir}/kde4/services/*.desktop
-%{_datadir}/kde4/services/kconfiguredialog/*.desktop
+%{_datadir}/kde4/services/kconfiguredialog
 %{_datadir}/kde4/servicetypes/*.desktop
 %{_datadir}/sounds/Kopete*.ogg
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/libkopete*.so
+%attr(755,root,root) %{_libdir}/libkyahoo.so
+%attr(755,root,root) %{_libdir}/liboscar.so
 %{_includedir}/kopete
