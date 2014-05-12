@@ -8,17 +8,18 @@
 Summary:	Multi-protocol plugin-based instant messenger
 Summary(pl.UTF-8):	Komunikator obsługujący wiele protokołów
 Name:		kde4-kopete
-Version:	4.12.4
+Version:	4.13.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	321d4d245b14a46baa1c5c07c9279ac9
+# Source0-md5:	a2c3e5ca935e9d5397cf14a54996eab2
 Patch0:		%{name}-FindLibgadu.patch
 Patch1:		linphone-fix.patch
 URL:		http://www.kde.org/
 BuildRequires:	cmake >= 2.8.0
 BuildRequires:	kde4-kdebase-devel >= %{version}
+BuildRequires:	kde4-kdepim-devel >= %{version}
 BuildRequires:	jsoncpp-devel
 BuildRequires:	libgadu-devel >= 1.8.0
 BuildRequires:	libktorrent-devel >= 1.0.2
@@ -26,6 +27,7 @@ BuildRequires:	libjingle-devel
 BuildRequires:	libmms-devel
 BuildRequires:	libmsn-devel >= 4.1
 BuildRequires:	libotr-devel >= 4.0.0
+BuildRequires:	mediastreamer-devel >= 2.3.0
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	ortp-devel >= 0.16.1-3
 BuildRequires:	qt4-build >= %{qtver}
