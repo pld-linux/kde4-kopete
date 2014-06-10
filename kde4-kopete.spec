@@ -8,12 +8,12 @@
 Summary:	Multi-protocol plugin-based instant messenger
 Summary(pl.UTF-8):	Komunikator obsługujący wiele protokołów
 Name:		kde4-kopete
-Version:	4.13.1
+Version:	4.13.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	dc6b434fd054dc6037f82d1f0fb4f7f9
+# Source0-md5:	ec845691747c96aecee5ae9655f26a06
 Patch0:		%{name}-FindLibgadu.patch
 Patch1:		linphone-fix.patch
 URL:		http://www.kde.org/
