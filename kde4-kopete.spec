@@ -30,6 +30,7 @@ BuildRequires:	libotr-devel >= 4.0.0
 BuildRequires:	mediastreamer-devel >= 2.3.0
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	ortp-devel >= 0.16.1-3
+BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	rpm-pythonprov
