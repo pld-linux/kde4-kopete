@@ -1,0 +1,11 @@
+--- kopete-4.14.3/plugins/history2/history2logger.h~	2014-11-02 12:16:53.000000000 +0100
++++ kopete-4.14.3/plugins/history2/history2logger.h	2017-03-03 21:31:28.093485234 +0100
+@@ -94,7 +94,7 @@
+ 	 * from Kopete::Contact @param c in the given @param sens
+ 	 */
+ 	QList<Kopete::Message> readMessages(int lines,
+-	                                    int offset=0, const Kopete::MetaContact *c=false, bool reverseOrder=true);
++	                                    int offset=0, const Kopete::MetaContact *c=0L, bool reverseOrder=true);
+ 
+ 	/**
+ 	 * Same as the following, but for one date. I did'nt reuse the above function
