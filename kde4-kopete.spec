@@ -30,9 +30,11 @@ BuildRequires:	libktorrent-devel >= 1.0.2
 BuildRequires:	libmms-devel
 BuildRequires:	libmsn-devel >= 4.1
 BuildRequires:	libotr-devel >= 4.0.0
+BuildRequires:	meanwhile-devel
 BuildRequires:	mediastreamer-devel >= 2.3.0
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	ortp-devel >= 0.16.1-3
+BuildRequires:	qca2-devel >= 2.0.0
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
