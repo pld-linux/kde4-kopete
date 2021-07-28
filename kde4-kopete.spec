@@ -15,7 +15,6 @@ Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
 # Source0-md5:	d05e478101292ebb08da2af00d1329ab
 Patch0:		%{name}-FindLibgadu.patch
-Patch1:		linphone-fix.patch
 Patch2:		mediastreamer.patch
 Patch3:		gcc6.patch
 Patch4:		macros.patch
@@ -223,7 +222,6 @@ do kopete.
 %prep
 %setup -q -n %{orgname}-%{version}
 %patch0 -p1
-#%patch1 -p2
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
