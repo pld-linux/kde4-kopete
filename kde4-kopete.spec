@@ -19,6 +19,7 @@ Patch1:		linphone-fix.patch
 Patch2:		mediastreamer.patch
 Patch3:		gcc6.patch
 Patch4:		macros.patch
+Patch5:		%{name}-qt.patch
 URL:		http://www.kde.org/
 BuildRequires:	automoc4
 BuildRequires:	cmake >= 2.8.0
@@ -226,6 +227,7 @@ do kopete.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 install -d build

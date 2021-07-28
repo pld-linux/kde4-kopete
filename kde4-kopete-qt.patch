@@ -1,0 +1,11 @@
+--- kopete-4.14.3/protocols/jabber/libiris/src/xmpp/xmpp-im/filetransfer.cpp.orig	2014-11-02 12:16:53.000000000 +0100
++++ kopete-4.14.3/protocols/jabber/libiris/src/xmpp/xmpp-im/filetransfer.cpp	2021-07-28 21:45:47.394356452 +0200
+@@ -430,7 +430,7 @@ FileTransfer *FileTransferManager::takeI
+ 
+ bool FileTransferManager::isActive(const FileTransfer *ft) const
+ {
+-	return d->list.contains(const_cast<FileTransfer*>(ft)) > 0;
++	return d->list.contains(const_cast<FileTransfer*>(ft));
+ }
+ 
+ void FileTransferManager::setDisabled(const QString &ns, bool state)
