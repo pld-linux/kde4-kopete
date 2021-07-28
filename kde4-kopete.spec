@@ -20,6 +20,7 @@ Patch2:		mediastreamer.patch
 Patch3:		gcc6.patch
 Patch4:		macros.patch
 URL:		http://www.kde.org/
+BuildRequires:	automoc4
 BuildRequires:	cmake >= 2.8.0
 BuildRequires:	kde4-kdebase-devel >= %{version}
 BuildRequires:	kde4-kdepim-devel >= 4.14.0-2
