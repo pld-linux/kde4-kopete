@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	npapi	# NPAPI browser plugin (skypebuttons)
+
 %define		_state		stable
 %define		orgname		kopete
 %define		qt_ver		4.8.3
@@ -217,6 +221,18 @@ Pliki nagłówkowe kopete.
 Arquivos de inclusão para compilar aplicações que usem as bibliotecas
 do kopete.
 
+%package -n browser-plugin-kde4-kopete-skypebuttons
+Summary:	Skypebuttons plugin for NPAPI compatible browsers
+Summary(pl.UTF-8):	Wtyczka skypebuttons dla przeglądarek zgodnych z NPAPI
+Group:		X11/Applications/Networking
+Requires:	%{name} = %{version}-%{release}
+
+%description -n browser-plugin-kde4-kopete-skypebuttons
+Skypebuttons plugin for NPAPI compatible browsers.
+
+%description -n browser-plugin-kde4-kopete-skypebuttons -l pl.UTF-8
+Wtyczka skypebuttons dla przeglądarek zgodnych z NPAPI.
+
 %prep
 %setup -q -n %{orgname}-%{version}
 %patch0 -p1
@@ -228,10 +244,10 @@ do kopete.
 %build
 install -d build
 cd build
-%cmake \
-	-DWITH_libjingle=OFF \
+%cmake .. \
+	%{!?with_npapi:-DBUILD_skypebuttons=OFF} \
 	-DMOZPLUGIN_INSTALL_DIR=%{_browserpluginsdir} \
-	../
+	-DWITH_libjingle=OFF
 
 %{__make}
 
@@ -264,34 +280,157 @@ fi
 %attr(755,root,root) %{_bindir}/kopete_latexconvert.sh
 %attr(755,root,root) %{_bindir}/winpopup-install
 %attr(755,root,root) %{_bindir}/winpopup-send
-%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_*.so
-%attr(755,root,root) %{_libdir}/kde4/kopete_*.so
-%attr(755,root,root) %{_libdir}/kde4/libchattexteditpart.so
-%attr(755,root,root) %{_libdir}/kde4/plugins/accessible/chatwindowaccessiblewidgetfactory.so
-%attr(755,root,root) %{_libdir}/libkopete*.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libkopete*.so.?
-%attr(755,root,root) %{_libdir}/libkyahoo.so.*.*
+%attr(755,root,root) %{_libdir}/libkopete.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopete.so.4
+%attr(755,root,root) %{_libdir}/libkopete_oscar.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopete_oscar.so.4
+%attr(755,root,root) %{_libdir}/libkopete_otr_shared.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopete_otr_shared.so.1
+%attr(755,root,root) %{_libdir}/libkopete_videodevice.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopete_videodevice.so.4
+%attr(755,root,root) %{_libdir}/libkopeteaddaccountwizard.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopeteaddaccountwizard.so.1
+%attr(755,root,root) %{_libdir}/libkopetechatwindow_shared.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopetechatwindow_shared.so.1
+%attr(755,root,root) %{_libdir}/libkopetecontactlist.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopetecontactlist.so.1
+%attr(755,root,root) %{_libdir}/libkopeteidentity.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopeteidentity.so.1
+%attr(755,root,root) %{_libdir}/libkopeteprivacy.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopeteprivacy.so.1
+%attr(755,root,root) %{_libdir}/libkopetestatusmenu.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkopetestatusmenu.so.1
+%attr(755,root,root) %{_libdir}/libkyahoo.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libkyahoo.so.1
-%attr(755,root,root) %{_libdir}/liboscar.so.*.*
+%attr(755,root,root) %{_libdir}/liboscar.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liboscar.so.1
 %attr(755,root,root) %{_libdir}/libqgroupwise.so
-%{_desktopdir}/kde4/kopete.desktop
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_accountconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_addbookmarks.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_appearanceconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_autoreplace.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_avdeviceconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_behaviorconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_chatwindowconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_highlight.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_history.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_history2.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_latex.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_nowlistening.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_otr.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_pipes.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_pluginconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_privacy.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_statusconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_texteffect.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_translator.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_urlpicpreview.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_webpresence.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_addbookmarks.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_aim.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_autoreplace.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_bonjour.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_chatwindow.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_contactnotes.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_emailwindow.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_gadu.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_groupwise.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_highlight.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_history.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_history2.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_icq.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_jabber.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_latex.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_meanwhile.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_nowlistening.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_otr.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_pipes.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_privacy.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_qq.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_skype.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_sms.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_statistics.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_testbed.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_texteffect.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_translator.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_urlpicpreview.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_webpresence.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_wlm.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_wp.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_yahoo.so
+%attr(755,root,root) %{_libdir}/kde4/libchattexteditpart.so
+%attr(755,root,root) %{_libdir}/kde4/plugins/accessible/chatwindowaccessiblewidgetfactory.so
 %attr(755,root,root) %{_datadir}/apps/kconf_update/kopete-*.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/kopete-*.sh
 %{_datadir}/apps/kconf_update/kopete-*.upd
-%{_datadir}/apps/kopete*
-%{_datadir}/config.kcfg/*.kcfg
+%{_datadir}/apps/kopete
+%{_datadir}/apps/kopete_contactnotes
+%{_datadir}/apps/kopete_groupwise
+%{_datadir}/apps/kopete_history
+%{_datadir}/apps/kopete_history2
+%{_datadir}/apps/kopete_jabber
+%{_datadir}/apps/kopete_latex
+%{_datadir}/apps/kopete_otr
+%{_datadir}/apps/kopete_privacy
+%{_datadir}/apps/kopete_skype
+%{_datadir}/apps/kopete_statistics
+%{_datadir}/apps/kopete_translator
+%{_datadir}/apps/kopete_wlm
+%{_datadir}/apps/kopete_yahoo
+%{_datadir}/apps/kopeterichtexteditpart
 %{_datadir}/config/kopeterc
-%{_datadir}/dbus-1/interfaces/*Kopete.xml
-%{_datadir}/dbus-1/interfaces/*kopete*.xml
-%{_iconsdir}/*/*/*/*.mng
-%{_iconsdir}/*/*/*/*.png
-%{_iconsdir}/*/*/*/*.svgz
-%{_datadir}/kde4/services/*.protocol
-%{_datadir}/kde4/services/*.desktop
+%{_datadir}/config.kcfg/history2config.kcfg
+%{_datadir}/config.kcfg/historyconfig.kcfg
+%{_datadir}/config.kcfg/kopete_otr.kcfg
+%{_datadir}/config.kcfg/kopeteappearancesettings.kcfg
+%{_datadir}/config.kcfg/kopetebehaviorsettings.kcfg
+%{_datadir}/config.kcfg/kopetestatussettings.kcfg
+%{_datadir}/config.kcfg/latexconfig.kcfg
+%{_datadir}/config.kcfg/nowlisteningconfig.kcfg
+%{_datadir}/config.kcfg/translatorconfig.kcfg
+%{_datadir}/config.kcfg/urlpicpreview.kcfg
+%{_datadir}/config.kcfg/webpresenceconfig.kcfg
+%{_datadir}/dbus-1/interfaces/org.kde.Kopete.xml
+%{_datadir}/dbus-1/interfaces/org.kde.kopete.Client.xml
+%{_datadir}/dbus-1/interfaces/org.kde.kopete.Statistics.xml
+%{_datadir}/kde4/services/aim.protocol
+%{_datadir}/kde4/services/callto.protocol
+%{_datadir}/kde4/services/skype.protocol
+%{_datadir}/kde4/services/tel.protocol
+%{_datadir}/kde4/services/xmpp.protocol
+%{_datadir}/kde4/services/chatwindow.desktop
+%{_datadir}/kde4/services/emailwindow.desktop
+%{_datadir}/kde4/services/kopete_*.desktop
 %{_datadir}/kde4/services/kconfiguredialog
-%{_datadir}/kde4/servicetypes/*.desktop
-%{_datadir}/sounds/Kopete*.ogg
+%{_datadir}/kde4/servicetypes/kopeteplugin.desktop
+%{_datadir}/kde4/servicetypes/kopeteprotocol.desktop
+%{_datadir}/kde4/servicetypes/kopeteui.desktop
+%{_datadir}/sounds/Kopete_*.ogg
+%{_desktopdir}/kde4/kopete.desktop
+%{_iconsdir}/hicolor/*x*/apps/kopete*.png
+%{_iconsdir}/hicolor/scalable/apps/kopete*.svgz
+%{_iconsdir}/oxygen/*x*/actions/account_offline_overlay.png
+%{_iconsdir}/oxygen/*x*/actions/contact_*_overlay.png
+%{_iconsdir}/oxygen/*x*/actions/emoticon.png
+%{_iconsdir}/oxygen/*x*/actions/im-status-message-edit.png
+%{_iconsdir}/oxygen/*x*/actions/metacontact_unknown.png
+%{_iconsdir}/oxygen/*x*/actions/status_unknown.png
+%{_iconsdir}/oxygen/*x*/actions/status_unknown_overlay.png
+%{_iconsdir}/oxygen/*x*/actions/view-user-offline-kopete.png
+%{_iconsdir}/oxygen/*x*/actions/voicecall.png
+%{_iconsdir}/oxygen/*x*/actions/webcamreceive.png
+%{_iconsdir}/oxygen/*x*/actions/webcamsend.png
+%{_iconsdir}/oxygen/22x22/status/object-locked-*.png
+%{_iconsdir}/oxygen/32x32/actions/newmessage.mng
+%{_iconsdir}/oxygen/48x48/actions/mail-encrypt.png
+%{_iconsdir}/oxygen/scalable/actions/account_offline_overlay.svgz
+%{_iconsdir}/oxygen/scalable/actions/im-status-message-edit.svgz
+%{_iconsdir}/oxygen/scalable/actions/mail-encrypt.svgz
+%{_iconsdir}/oxygen/scalable/actions/view-user-offline-kopete.svgz
+%{_iconsdir}/oxygen/scalable/actions/voicecall.svgz
+%{_iconsdir}/oxygen/scalable/actions/webcamreceive.svgz
+%{_iconsdir}/oxygen/scalable/actions/webcamsend.svgz
+%{_iconsdir}/oxygen/scalable/status/object-locked-*.svgz
 
 %files devel
 %defattr(644,root,root,755)
@@ -299,3 +438,9 @@ fi
 %attr(755,root,root) %{_libdir}/libkyahoo.so
 %attr(755,root,root) %{_libdir}/liboscar.so
 %{_includedir}/kopete
+
+%if %{with npapi}
+%files -n browser-plugin-kde4-kopete-skypebuttons
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_browserpluginsdir}/skypebuttons.so
+%endif
