@@ -2,7 +2,6 @@
 # Conditional build:
 %bcond_with	npapi	# NPAPI browser plugin (skypebuttons)
 
-%define		_state		stable
 %define		orgname		kopete
 %define		qt_ver		4.8.3
 
@@ -13,14 +12,14 @@ Version:	4.14.3
 Release:	12
 License:	GPL v2+ with OpenSSL exception (kopete), LGPL v2+ (libkopete)
 Group:		X11/Applications
-Source0:	http://download.kde.org/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
+Source0:	https://download.kde.org/Attic/%{version}/src/%{orgname}-%{version}.tar.xz
 # Source0-md5:	d05e478101292ebb08da2af00d1329ab
 Patch0:		%{name}-FindLibgadu.patch
 Patch2:		mediastreamer.patch
 Patch3:		gcc6.patch
 Patch4:		macros.patch
 Patch5:		%{name}-qt.patch
-URL:		http://www.kde.org/
+URL:		https://kde.org/
 BuildRequires:	automoc4
 BuildRequires:	cmake >= 2.8.0
 BuildRequires:	kde4-kdebase-devel >= %{version}
