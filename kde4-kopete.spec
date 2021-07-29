@@ -7,7 +7,7 @@ Summary(pl.UTF-8):	Komunikator obsługujący wiele protokołów
 Name:		kde4-kopete
 Version:	4.14.3
 Release:	12
-License:	GPL v2+
+License:	GPL v2+ with OpenSSL exception (kopete), LGPL v2+ (libkopete)
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
 # Source0-md5:	d05e478101292ebb08da2af00d1329ab
@@ -201,6 +201,7 @@ nowych programistów, na których można opierać nowe wtyczki.
 %package devel
 Summary:	kopete header files
 Summary(pl.UTF-8):	Pliki nagłówkowe kopete
+License:	LGPL v2+
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	kde4-kdelibs-devel >= %{version}
@@ -258,6 +259,7 @@ fi
 
 %files -f kopete.lang
 %defattr(644,root,root,755)
+%doc COPYING README TODO
 %attr(755,root,root) %{_bindir}/kopete
 %attr(755,root,root) %{_bindir}/kopete_latexconvert.sh
 %attr(755,root,root) %{_bindir}/winpopup-install
