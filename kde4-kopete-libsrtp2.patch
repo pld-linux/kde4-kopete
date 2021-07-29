@@ -1,0 +1,13 @@
+--- kopete-4.14.3/cmake/modules/FindSRTP.cmake.orig	2014-11-02 12:16:53.000000000 +0100
++++ kopete-4.14.3/cmake/modules/FindSRTP.cmake	2021-07-29 19:26:41.376984673 +0200
+@@ -11,8 +11,8 @@ include ( FindPackageHandleStandardArgs
+ if ( SRTP_INCLUDE_DIR AND SRTP_LIBRARY )
+ 	set ( SRTP_FOUND true )
+ else ( SRTP_INCLUDE_DIR AND SRTP_LIBRARY )
+-	find_path ( SRTP_INCLUDE_DIR srtp.h PATH_SUFFIXES srtp )
+-	find_library ( SRTP_LIBRARY NAMES srtp )
++	find_path ( SRTP_INCLUDE_DIR srtp.h PATH_SUFFIXES srtp2 srtp )
++	find_library ( SRTP_LIBRARY NAMES srtp2 srtp )
+ 
+ 	if ( SRTP_INCLUDE_DIR AND SRTP_LIBRARY )
+ 		set ( SRTP_FOUND true )

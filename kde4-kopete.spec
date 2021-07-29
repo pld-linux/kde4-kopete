@@ -1,6 +1,7 @@
 #
 # Conditional build:
-%bcond_with	npapi	# NPAPI browser plugin (skypebuttons)
+%bcond_with	npapi		# NPAPI browser plugin (skypebuttons)
+%bcond_with	libjingle	# libjingle support in Jabber
 
 %define		orgname		kopete
 %define		qt_ver		4.8.3
@@ -15,22 +16,43 @@ Group:		X11/Applications
 Source0:	https://download.kde.org/Attic/%{version}/src/%{orgname}-%{version}.tar.xz
 # Source0-md5:	d05e478101292ebb08da2af00d1329ab
 Patch0:		%{name}-FindLibgadu.patch
+Patch1:		%{name}-libsrtp2.patch
 Patch2:		mediastreamer.patch
 Patch3:		gcc6.patch
 Patch4:		macros.patch
 Patch5:		%{name}-qt.patch
+Patch6:		%{name}-no-libnsl.patch
 URL:		https://kde.org/
+BuildRequires:	Qt3Support-devel >= %{qt_ver}
+BuildRequires:	QtCore-devel >= %{qt_ver}
+BuildRequires:	QtGui-devel >= %{qt_ver}
+BuildRequires:	QtNetwork-devel >= %{qt_ver}
+BuildRequires:	QtSql-devel >= %{qt_ver}
+BuildRequires:	QtTest-devel >= %{qt_ver}
+BuildRequires:	QtXml-devel >= %{qt_ver}
+%{?with_libjingle:BuildRequires:	alsa-lib-devel}
 BuildRequires:	automoc4
+BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.8.0
+%{?with_libjingle:BuildRequires:	expat-devel >= 1.95}
+BuildRequires:	giflib-devel
+BuildRequires:	glib2-devel >= 2.0
+BuildRequires:	jasper-devel
+%{?with_libjingle:BuildRequires:	jsoncpp-devel}
 BuildRequires:	kde4-kdebase-devel >= %{version}
+# for libkleo
 BuildRequires:	kde4-kdepim-devel >= 4.14.0-2
+# FIXME: it contains libkleo.so symlink by mistake
+BuildRequires:	kde4-kdepim-kmail >= 4.14.0-2
 BuildRequires:	kde4-kdepimlibs-devel >= 4.14.0-2
-BuildRequires:	jsoncpp-devel
 BuildRequires:	libgadu-devel >= 1.8.0
-BuildRequires:	libktorrent-devel >= 1.0.2
-BuildRequires:	libmms-devel
+BuildRequires:	libidn-devel
 BuildRequires:	libmsn-devel >= 4.1
 BuildRequires:	libotr-devel >= 4.0.0
+%{?with_libjingle:BuildRequires:	libsrtp2-devel >= 2}
+BuildRequires:	libv4l-devel
+BuildRequires:	libxml2-devel >= 2.0
+BuildRequires:	libxslt-devel
 BuildRequires:	meanwhile-devel
 BuildRequires:	mediastreamer-devel >= 2.3.0
 BuildRequires:	openssl-devel >= 0.9.7d
@@ -39,13 +61,31 @@ BuildRequires:	qca-devel >= 2.0.0
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt_ver}
 BuildRequires:	qt4-qmake >= %{qt_ver}
+BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.600
-BuildRequires:	speex-devel
-BuildRequires:	telepathy-qt4-devel >= 0.9.0
+BuildRequires:	rpmbuild(macros) >= 1.605
+# disabled in CMakeLists.txt
+#BuildRequires:	speex-devel
+# for statistics plugin? (only checked, not used)
+#BuildRequires:	sqlite-devel
 BuildRequires:	xmms-devel
-BuildRequires:	xorg-lib-libXdamage-devel
-BuildRequires:	xorg-lib-libXtst-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXScrnSaver-devel
+BuildRequires:	zlib-devel
+Requires:	Qt3Support >= %{qt_ver}
+Requires:	QtCore >= %{qt_ver}
+Requires:	QtGui >= %{qt_ver}
+Requires:	QtNetwork >= %{qt_ver}
+Requires:	QtSql >= %{qt_ver}
+Requires:	QtXml >= %{qt_ver}
+Requires:	kde4-kdelibs >= %{version}
+Requires:	kde4-kdepim-libs >= 4.14.0
+Requires:	kde4-kdepimlibs >= 4.14.0
+Requires:	libgadu >= 1.8.0
+Requires:	libmsn >= 4.1
+Requires:	libotr >= 4.0.0
+Requires:	mediastreamer >= 2.3.0
+Requires:	ortp >= 0.16.1-3
 Obsoletes:	kde4-kdenetwork-kopete < 4.11
 Obsoletes:	kde4-kdenetwork-kopete-protocol-aim < 4.11
 Obsoletes:	kde4-kdenetwork-kopete-protocol-bonjour < 4.11
@@ -235,10 +275,12 @@ Wtyczka skypebuttons dla przeglądarek zgodnych z NPAPI.
 %prep
 %setup -q -n %{orgname}-%{version}
 %patch0 -p1
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 install -d build
@@ -246,7 +288,7 @@ cd build
 %cmake .. \
 	%{!?with_npapi:-DBUILD_skypebuttons=OFF} \
 	-DMOZPLUGIN_INSTALL_DIR=%{_browserpluginsdir} \
-	-DWITH_libjingle=OFF
+	%{!?with_libjingle:-DWITH_libjingle=OFF}
 
 %{__make}
 
@@ -311,6 +353,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_kopete_avdeviceconfig.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kopete_behaviorconfig.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kopete_chatwindowconfig.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kopete_cryptography.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kopete_highlight.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kopete_history.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kopete_history2.so
@@ -331,6 +374,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kopete_bonjour.so
 %attr(755,root,root) %{_libdir}/kde4/kopete_chatwindow.so
 %attr(755,root,root) %{_libdir}/kde4/kopete_contactnotes.so
+%attr(755,root,root) %{_libdir}/kde4/kopete_cryptography.so
 %attr(755,root,root) %{_libdir}/kde4/kopete_emailwindow.so
 %attr(755,root,root) %{_libdir}/kde4/kopete_gadu.so
 %attr(755,root,root) %{_libdir}/kde4/kopete_groupwise.so
@@ -364,6 +408,7 @@ fi
 %{_datadir}/apps/kconf_update/kopete-*.upd
 %{_datadir}/apps/kopete
 %{_datadir}/apps/kopete_contactnotes
+%{_datadir}/apps/kopete_cryptography
 %{_datadir}/apps/kopete_groupwise
 %{_datadir}/apps/kopete_history
 %{_datadir}/apps/kopete_history2

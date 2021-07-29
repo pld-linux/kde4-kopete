@@ -1,0 +1,19 @@
+--- kopete-4.14.3/protocols/jabber/libiris/CMakeLists.txt.orig	2014-11-02 12:16:53.000000000 +0100
++++ kopete-4.14.3/protocols/jabber/libiris/CMakeLists.txt	2021-07-29 19:44:22.389063387 +0200
+@@ -235,16 +235,6 @@ if(WIN32)
+   set(iris_kopete_libs ${iris_kopete_libs} ws2_32)
+ endif(WIN32)
+ 
+-# On Solaris, some of the name resolution functions are in libnsl;
+-# this needs to be linked in if found. Copied from kdelibs.
+-include(CheckLibraryExists)
+-check_library_exists(nsl gethostbyname "" HAVE_NSL_LIBRARY)
+-
+-if(HAVE_NSL_LIBRARY)
+-  # This is probably Solaris, and libiris needs to link
+-  # to libnsl for gethostbyname
+-  set(iris_kopete_libs ${iris_kopete_libs} nsl)
+-endif(HAVE_NSL_LIBRARY)
+ target_link_libraries(iris_kopete ${iris_kopete_libs})
+ 
+ ########### install files ###############
