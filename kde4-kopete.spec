@@ -1,6 +1,3 @@
-# TODO:
-# - add missing obsoletes and such
-
 %define		_state		stable
 %define		orgname		kopete
 %define		qtver		4.8.3
@@ -35,7 +32,7 @@ BuildRequires:	meanwhile-devel
 BuildRequires:	mediastreamer-devel >= 2.3.0
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	ortp-devel >= 0.16.1-3
-BuildRequires:	qca2-devel >= 2.0.0
+BuildRequires:	qca-devel >= 2.0.0
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
