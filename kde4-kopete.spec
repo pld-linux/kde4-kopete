@@ -1,6 +1,6 @@
 %define		_state		stable
 %define		orgname		kopete
-%define		qtver		4.8.3
+%define		qt_ver		4.8.3
 
 Summary:	Multi-protocol plugin-based instant messenger
 Summary(pl.UTF-8):	Komunikator obsługujący wiele protokołów
@@ -34,8 +34,8 @@ BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	ortp-devel >= 0.16.1-3
 BuildRequires:	qca-devel >= 2.0.0
 BuildRequires:	qimageblitz-devel
-BuildRequires:	qt4-build >= %{qtver}
-BuildRequires:	qt4-qmake >= %{qtver}
+BuildRequires:	qt4-build >= %{qt_ver}
+BuildRequires:	qt4-qmake >= %{qt_ver}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	speex-devel
